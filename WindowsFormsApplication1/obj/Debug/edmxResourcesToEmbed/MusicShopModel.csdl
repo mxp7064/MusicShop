@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="musicshopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="cartdetail">
+    <Key>
+      <PropertyRef Name="cartDetailID" />
+    </Key>
+    <Property Name="cartDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <Property Name="productPrice" Type="Single" />
+    <NavigationProperty Name="product" Relationship="Self.fk_CartDetail_Product1" FromRole="cartdetail" ToRole="product" />
+    <NavigationProperty Name="user" Relationship="Self.fk_CartDetail_User1" FromRole="cartdetail" ToRole="user" />
+  </EntityType>
+  <EntityType Name="creator">
+    <Key>
+      <PropertyRef Name="creatorID" />
+    </Key>
+    <Property Name="creatorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="creatorName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="creatorDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="productcreators" Relationship="Self.fk_ProductCreator_Creator1" FromRole="creator" ToRole="productcreator" />
+  </EntityType>
+  <EntityType Name="creditcard">
+    <Key>
+      <PropertyRef Name="creditCardID" />
+    </Key>
+    <Property Name="creditCardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="creditCardNumber" Type="Int32" />
+    <Property Name="creditCardCVV" Type="Int32" />
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="user" Relationship="Self.fk_CreditCard_User1" FromRole="creditcard" ToRole="user" />
+    <Property Name="creditBalance" Type="Single" />
+  </EntityType>
+  <EntityType Name="genre">
+    <Key>
+      <PropertyRef Name="genreID" />
+    </Key>
+    <Property Name="genreID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="genreName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="products" Relationship="Self.fk_Product_Genre1" FromRole="genre" ToRole="product" />
+  </EntityType>
+  <EntityType Name="invoice">
+    <Key>
+      <PropertyRef Name="invoiceID" />
+    </Key>
+    <Property Name="invoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <Property Name="datePurchased" Type="DateTime" />
+    <Property Name="total" Type="Single" />
+    <Property Name="discount" Type="Single" />
+    <Property Name="totalWithDiscount" Type="Single" />
+    <NavigationProperty Name="user" Relationship="Self.fk_Invoice_User1" FromRole="invoice" ToRole="user" />
+    <NavigationProperty Name="invoicedetails" Relationship="Self.fk_InvoiceDetail_Invoice1" FromRole="invoice" ToRole="invoicedetail" />
+  </EntityType>
+  <EntityType Name="invoicedetail">
+    <Key>
+      <PropertyRef Name="productID" />
+      <PropertyRef Name="invoiceID" />
+    </Key>
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="invoiceID" Type="Int32" Nullable="false" />
+    <Property Name="productPrice" Type="Single" />
+    <NavigationProperty Name="invoice" Relationship="Self.fk_InvoiceDetail_Invoice1" FromRole="invoicedetail" ToRole="invoice" />
+    <NavigationProperty Name="product" Relationship="Self.fk_InvoiceDetail_Product1" FromRole="invoicedetail" ToRole="product" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="productPrice" Type="Single" />
+    <Property Name="productCover" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="productTypeID" Type="Int32" Nullable="false" />
+    <Property Name="genreID" Type="Int32" />
+    <Property Name="isDiscounted" Type="Boolean" />
+    <Property Name="discountRate" Type="Single" />
+    <NavigationProperty Name="cartdetails" Relationship="Self.fk_CartDetail_Product1" FromRole="product" ToRole="cartdetail" />
+    <NavigationProperty Name="genre" Relationship="Self.fk_Product_Genre1" FromRole="product" ToRole="genre" />
+    <NavigationProperty Name="invoicedetails" Relationship="Self.fk_InvoiceDetail_Product1" FromRole="product" ToRole="invoicedetail" />
+    <NavigationProperty Name="producttype" Relationship="Self.fk_Product_ProductType1" FromRole="product" ToRole="producttype" />
+    <NavigationProperty Name="productcreators" Relationship="Self.fk_ProductCreator_Product1" FromRole="product" ToRole="productcreator" />
+    <NavigationProperty Name="ratings" Relationship="Self.fk_Rating_Product1" FromRole="product" ToRole="rating" />
+  </EntityType>
+  <EntityType Name="productcreator">
+    <Key>
+      <PropertyRef Name="creatorID" />
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="creatorID" Type="Int32" Nullable="false" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="creatorRole" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="creator" Relationship="Self.fk_ProductCreator_Creator1" FromRole="productcreator" ToRole="creator" />
+    <NavigationProperty Name="product" Relationship="Self.fk_ProductCreator_Product1" FromRole="productcreator" ToRole="product" />
+  </EntityType>
+  <EntityType Name="producttype">
+    <Key>
+      <PropertyRef Name="productTypeID" />
+    </Key>
+    <Property Name="productTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productTypeName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="products" Relationship="Self.fk_Product_ProductType1" FromRole="producttype" ToRole="product" />
+  </EntityType>
+  <EntityType Name="rating">
+    <Key>
+      <PropertyRef Name="ratingID" />
+    </Key>
+    <Property Name="ratingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ratingGrade" Type="Int32" />
+    <Property Name="comment" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="product" Relationship="Self.fk_Rating_Product1" FromRole="rating" ToRole="product" />
+    <NavigationProperty Name="user" Relationship="Self.fk_Rating_User1" FromRole="rating" ToRole="user" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="userEmail" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="accessLevel" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="dateOfBirth" Type="DateTime" />
+    <Property Name="subscriptionActive" Type="Boolean" />
+    <Property Name="discountPoints" Type="Single" />
+    <NavigationProperty Name="cartdetails" Relationship="Self.fk_CartDetail_User1" FromRole="user" ToRole="cartdetail" />
+    <NavigationProperty Name="creditcards" Relationship="Self.fk_CreditCard_User1" FromRole="user" ToRole="creditcard" />
+    <NavigationProperty Name="invoices" Relationship="Self.fk_Invoice_User1" FromRole="user" ToRole="invoice" />
+    <NavigationProperty Name="ratings" Relationship="Self.fk_Rating_User1" FromRole="user" ToRole="rating" />
+  </EntityType>
+  <Association Name="fk_CartDetail_Product1">
+    <End Role="product" Type="Self.product" Multiplicity="1" />
+    <End Role="cartdetail" Type="Self.cartdetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="cartdetail">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_CartDetail_User1">
+    <End Role="user" Type="Self.user" Multiplicity="1" />
+    <End Role="cartdetail" Type="Self.cartdetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="cartdetail">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ProductCreator_Creator1">
+    <End Role="creator" Type="Self.creator" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="productcreator" Type="Self.productcreator" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="creator">
+        <PropertyRef Name="creatorID" />
+      </Principal>
+      <Dependent Role="productcreator">
+        <PropertyRef Name="creatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_CreditCard_User1">
+    <End Role="user" Type="Self.user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="creditcard" Type="Self.creditcard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="creditcard">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Product_Genre1">
+    <End Role="genre" Type="Self.genre" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="genre">
+        <PropertyRef Name="genreID" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="genreID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Invoice_User1">
+    <End Role="user" Type="Self.user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="invoice" Type="Self.invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="invoice">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_InvoiceDetail_Invoice1">
+    <End Role="invoice" Type="Self.invoice" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="invoicedetail" Type="Self.invoicedetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="invoice">
+        <PropertyRef Name="invoiceID" />
+      </Principal>
+      <Dependent Role="invoicedetail">
+        <PropertyRef Name="invoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_InvoiceDetail_Product1">
+    <End Role="product" Type="Self.product" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="invoicedetail" Type="Self.invoicedetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="invoicedetail">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Product_ProductType1">
+    <End Role="producttype" Type="Self.producttype" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="producttype">
+        <PropertyRef Name="productTypeID" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="productTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ProductCreator_Product1">
+    <End Role="product" Type="Self.product" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="productcreator" Type="Self.productcreator" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="productcreator">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Rating_Product1">
+    <End Role="product" Type="Self.product" Multiplicity="1" />
+    <End Role="rating" Type="Self.rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="rating">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Rating_User1">
+    <End Role="user" Type="Self.user" Multiplicity="1" />
+    <End Role="rating" Type="Self.rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="rating">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="musicShopEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="cartdetails" EntityType="Self.cartdetail" />
+    <EntitySet Name="creators" EntityType="Self.creator" />
+    <EntitySet Name="creditcards" EntityType="Self.creditcard" />
+    <EntitySet Name="genres" EntityType="Self.genre" />
+    <EntitySet Name="invoices" EntityType="Self.invoice" />
+    <EntitySet Name="invoicedetails" EntityType="Self.invoicedetail" />
+    <EntitySet Name="products" EntityType="Self.product" />
+    <EntitySet Name="productcreators" EntityType="Self.productcreator" />
+    <EntitySet Name="producttypes" EntityType="Self.producttype" />
+    <EntitySet Name="ratings" EntityType="Self.rating" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <AssociationSet Name="fk_CartDetail_Product1" Association="Self.fk_CartDetail_Product1">
+      <End Role="product" EntitySet="products" />
+      <End Role="cartdetail" EntitySet="cartdetails" />
+    </AssociationSet>
+    <AssociationSet Name="fk_CartDetail_User1" Association="Self.fk_CartDetail_User1">
+      <End Role="user" EntitySet="users" />
+      <End Role="cartdetail" EntitySet="cartdetails" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ProductCreator_Creator1" Association="Self.fk_ProductCreator_Creator1">
+      <End Role="creator" EntitySet="creators" />
+      <End Role="productcreator" EntitySet="productcreators" />
+    </AssociationSet>
+    <AssociationSet Name="fk_CreditCard_User1" Association="Self.fk_CreditCard_User1">
+      <End Role="user" EntitySet="users" />
+      <End Role="creditcard" EntitySet="creditcards" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Product_Genre1" Association="Self.fk_Product_Genre1">
+      <End Role="genre" EntitySet="genres" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Invoice_User1" Association="Self.fk_Invoice_User1">
+      <End Role="user" EntitySet="users" />
+      <End Role="invoice" EntitySet="invoices" />
+    </AssociationSet>
+    <AssociationSet Name="fk_InvoiceDetail_Invoice1" Association="Self.fk_InvoiceDetail_Invoice1">
+      <End Role="invoice" EntitySet="invoices" />
+      <End Role="invoicedetail" EntitySet="invoicedetails" />
+    </AssociationSet>
+    <AssociationSet Name="fk_InvoiceDetail_Product1" Association="Self.fk_InvoiceDetail_Product1">
+      <End Role="product" EntitySet="products" />
+      <End Role="invoicedetail" EntitySet="invoicedetails" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Product_ProductType1" Association="Self.fk_Product_ProductType1">
+      <End Role="producttype" EntitySet="producttypes" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ProductCreator_Product1" Association="Self.fk_ProductCreator_Product1">
+      <End Role="product" EntitySet="products" />
+      <End Role="productcreator" EntitySet="productcreators" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Rating_Product1" Association="Self.fk_Rating_Product1">
+      <End Role="product" EntitySet="products" />
+      <End Role="rating" EntitySet="ratings" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Rating_User1" Association="Self.fk_Rating_User1">
+      <End Role="user" EntitySet="users" />
+      <End Role="rating" EntitySet="ratings" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
