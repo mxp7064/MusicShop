@@ -32,7 +32,7 @@ CREATE TABLE `cartdetail` (
   KEY `fk_CartDetail_User1_idx` (`userID`),
   CONSTRAINT `fk_CartDetail_Product1` FOREIGN KEY (`productID`) REFERENCES `product` (`productID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_CartDetail_User1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -82,11 +82,13 @@ CREATE TABLE `creditcard` (
   `creditCardCVV` int(11) DEFAULT NULL,
   `creditBalance` float DEFAULT NULL,
   `cardProvider` varchar(45) DEFAULT NULL,
+  `creditCardHolderName` varchar(45) DEFAULT NULL,
+  `expirationDate` date DEFAULT NULL,
   `userID` int(11) NOT NULL,
   PRIMARY KEY (`creditCardID`),
   KEY `fk_CreditCard_User1_idx` (`userID`),
   CONSTRAINT `fk_CreditCard_User1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,6 +97,7 @@ CREATE TABLE `creditcard` (
 
 LOCK TABLES `creditcard` WRITE;
 /*!40000 ALTER TABLE `creditcard` DISABLE KEYS */;
+INSERT INTO `creditcard` VALUES (22,888,888,1709.53,'888','888','2017-11-01',74),(23,1,1,300,'1','1','2017-11-01',76),(24,2,2,300,'2','2','2017-11-01',76),(25,9,9,300,'9','9','2017-11-01',74);
 /*!40000 ALTER TABLE `creditcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,7 +142,7 @@ CREATE TABLE `invoice` (
   PRIMARY KEY (`invoiceID`),
   KEY `fk_PurchaseHistory_User1_idx` (`userID`),
   CONSTRAINT `fk_Invoice_User1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,6 +151,7 @@ CREATE TABLE `invoice` (
 
 LOCK TABLES `invoice` WRITE;
 /*!40000 ALTER TABLE `invoice` DISABLE KEYS */;
+INSERT INTO `invoice` VALUES (11,74,'2017-11-24 21:50:50',162.78,1.8848,159.712),(12,74,'2017-11-24 21:53:09',156.158,15.9712,131.218);
 /*!40000 ALTER TABLE `invoice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,6 +180,7 @@ CREATE TABLE `invoicedetail` (
 
 LOCK TABLES `invoicedetail` WRITE;
 /*!40000 ALTER TABLE `invoicedetail` DISABLE KEYS */;
+INSERT INTO `invoicedetail` VALUES (1,12,18.848),(2,11,12.33),(2,12,12.33),(3,11,150.45),(5,12,100.42),(6,12,24.56);
 /*!40000 ALTER TABLE `invoicedetail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -195,6 +200,7 @@ CREATE TABLE `product` (
   `genreID` int(11) DEFAULT NULL,
   `isDiscounted` tinyint(1) DEFAULT NULL,
   `discountRate` float DEFAULT NULL,
+  `productFileName` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`productID`),
   KEY `fk_Product_ProductType1_idx` (`productTypeID`),
   KEY `fk_Product_Genre1_idx` (`genreID`),
@@ -209,7 +215,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'Highway To Hell',23.56,'placeholder',1,1,1,20),(2,'Fear  The Dark',12.33,'placeholder',1,3,NULL,NULL),(3,'Ableton',150.45,'placeholder',2,NULL,NULL,NULL),(4,'Nexus',250.66,'placeholder',4,NULL,NULL,NULL),(5,'Vengenance',100.42,'placeholder',3,5,NULL,NULL),(6,'Anhialte',24.56,'placeholder',3,6,NULL,NULL),(7,'Destructo',12.44,'placeholder',3,6,NULL,NULL);
+INSERT INTO `product` VALUES (1,'Highway To Hell',23.56,'placeholder',1,1,1,20,'Vocal Exercise.wav'),(2,'Fear  The Dark',12.33,'placeholder',1,3,NULL,NULL,'Vocal Exercise.wav'),(3,'Ableton',150.45,'placeholder',2,NULL,NULL,NULL,NULL),(4,'Nexus',250.66,'placeholder',4,NULL,NULL,NULL,NULL),(5,'Vengenance',100.42,'placeholder',3,5,NULL,NULL,NULL),(6,'Anhialte',24.56,'placeholder',3,6,NULL,NULL,NULL),(7,'Destructo',12.44,'placeholder',3,6,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -293,7 +299,6 @@ CREATE TABLE `rating` (
 
 LOCK TABLES `rating` WRITE;
 /*!40000 ALTER TABLE `rating` DISABLE KEYS */;
-INSERT INTO `rating` VALUES (80,4,'asdasd',1,2),(81,2,'dfg',2,2);
 /*!40000 ALTER TABLE `rating` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -314,7 +319,7 @@ CREATE TABLE `user` (
   `subscriptionActive` tinyint(1) DEFAULT NULL,
   `discountPoints` float DEFAULT NULL,
   PRIMARY KEY (`userID`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -323,7 +328,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Marko','panca123@gmail.com','12345','admin','1993-03-20',0,0),(2,'panca','ert@asdf.com','123','general','2016-11-20',NULL,NULL),(73,'new','new','$MYHASH$V1$10000$fwNGoK69Wz9JTp/T71XCNFGAsG7128uGzQv8H9/Gh8kSjSBQ','general','2016-11-20',0,0);
+INSERT INTO `user` VALUES (74,'new','new','$MYHASH$V1$10000$fwNGoK69Wz9JTp/T71XCNFGAsG7128uGzQv8H9/Gh8kSjSBQ','admin','2016-11-20',0,13.1218),(76,'old','old','$MYHASH$V1$10000$EWaay0fgwtKDyAD4MaQHHlDJPfhbKd/SN/KlmdbalTvZO105','general','2016-11-20',0,0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -336,4 +341,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-19 19:28:09
+-- Dump completed on 2017-11-26 22:47:18
