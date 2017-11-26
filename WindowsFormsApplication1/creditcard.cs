@@ -17,9 +17,11 @@ namespace MusicShop
         public int creditCardID { get; set; }
         public Nullable<int> creditCardNumber { get; set; }
         public Nullable<int> creditCardCVV { get; set; }
-        public int userID { get; set; }
         public Nullable<float> creditBalance { get; set; }
         public string cardProvider { get; set; }
+        public string creditCardHolderName { get; set; }
+        public System.DateTime expirationDate { get; set; }
+        public int userID { get; set; }
     
         public virtual user user { get; set; }
     }

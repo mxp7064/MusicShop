@@ -54,6 +54,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.lastPageLabel = new System.Windows.Forms.Label();
             this.numOfResLabel = new System.Windows.Forms.Label();
+            this.AccManagementButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.leftArrowPic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightArrowPic)).BeginInit();
             this.SuspendLayout();
@@ -205,7 +206,7 @@
             // 
             this.loggedInLabel.AutoSize = true;
             this.loggedInLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loggedInLabel.Location = new System.Drawing.Point(1031, 69);
+            this.loggedInLabel.Location = new System.Drawing.Point(933, 73);
             this.loggedInLabel.Name = "loggedInLabel";
             this.loggedInLabel.Size = new System.Drawing.Size(45, 16);
             this.loggedInLabel.TabIndex = 23;
@@ -346,12 +347,30 @@
             this.numOfResLabel.TabIndex = 34;
             this.numOfResLabel.Text = "Number of results: 15";
             // 
+            // AccManagementButton
+            // 
+            this.AccManagementButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.AccManagementButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.AccManagementButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.AccManagementButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AccManagementButton.ForeColor = System.Drawing.Color.White;
+            this.AccManagementButton.Location = new System.Drawing.Point(932, 28);
+            this.AccManagementButton.Name = "AccManagementButton";
+            this.AccManagementButton.Size = new System.Drawing.Size(75, 30);
+            this.AccManagementButton.TabIndex = 35;
+            this.AccManagementButton.TabStop = false;
+            this.AccManagementButton.Text = "Account";
+            this.AccManagementButton.UseVisualStyleBackColor = false;
+            this.AccManagementButton.Visible = false;
+            this.AccManagementButton.Click += new System.EventHandler(this.AccManagementButton_Click);
+            // 
             // MusicShopPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1301, 556);
+            this.Controls.Add(this.AccManagementButton);
             this.Controls.Add(this.numOfResLabel);
             this.Controls.Add(this.lastPageLabel);
             this.Controls.Add(this.label8);
@@ -414,6 +433,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lastPageLabel;
         private System.Windows.Forms.Label numOfResLabel;
+        private System.Windows.Forms.Button AccManagementButton;
     }
 }
 

@@ -229,6 +229,7 @@ namespace WindowsFormsApplication1
         {
             if (IsLoggedIn)
             {
+                AccManagementButton.Visible = true;
                 registerButton.Visible = false;
                 loginButton.Text = "Sign out";
                 loggedInLabel.Visible = true;
@@ -239,6 +240,7 @@ namespace WindowsFormsApplication1
             }
             else
             {
+                AccManagementButton.Visible = false;
                 registerButton.Visible = true;
                 loginButton.Text = "Login";
                 loggedInLabel.Visible = false;
@@ -357,6 +359,10 @@ namespace WindowsFormsApplication1
             pageTextBox.Text = "" + page;
         }
 
-       
+        private void AccManagementButton_Click(object sender, EventArgs e)
+        {
+            AccountManagement am = new AccountManagement();
+            am.Show();
+        }
     }
 }

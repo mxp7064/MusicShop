@@ -31,6 +31,8 @@
           <Property Name="creditCardCVV" Type="int" />
           <Property Name="creditBalance" Type="float" />
           <Property Name="cardProvider" Type="varchar" MaxLength="45" />
+          <Property Name="creditCardHolderName" Type="varchar" MaxLength="45" />
+          <Property Name="expirationDate" Type="date" />
           <Property Name="userID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="genre">
@@ -72,6 +74,7 @@
           <Property Name="genreID" Type="int" />
           <Property Name="isDiscounted" Type="bool" />
           <Property Name="discountRate" Type="float" />
+          <Property Name="productFileName" Type="varchar" MaxLength="45" />
         </EntityType>
         <EntityType Name="productcreator">
           <Key>
@@ -372,10 +375,12 @@
           <Property Name="creditCardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="creditCardNumber" Type="Int32" />
           <Property Name="creditCardCVV" Type="Int32" />
-          <Property Name="userID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="user" Relationship="Self.fk_CreditCard_User1" FromRole="creditcard" ToRole="user" />
           <Property Name="creditBalance" Type="Single" />
           <Property Name="cardProvider" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="creditCardHolderName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="expirationDate" Type="DateTime" Nullable="false" />
+          <Property Name="userID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.fk_CreditCard_User1" FromRole="creditcard" ToRole="user" />
         </EntityType>
         <EntityType Name="genre">
           <Key>
@@ -427,6 +432,7 @@
           <NavigationProperty Name="producttype" Relationship="Self.fk_Product_ProductType1" FromRole="product" ToRole="producttype" />
           <NavigationProperty Name="productcreators" Relationship="Self.fk_ProductCreator_Product1" FromRole="product" ToRole="productcreator" />
           <NavigationProperty Name="ratings" Relationship="Self.fk_Rating_Product1" FromRole="product" ToRole="rating" />
+          <Property Name="productFileName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="productcreator">
           <Key>
@@ -477,7 +483,9 @@
           <NavigationProperty Name="ratings" Relationship="Self.fk_Rating_User1" FromRole="user" ToRole="rating" />
         </EntityType>
         <Association Name="fk_CartDetail_Product1">
-          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="cartdetail" Type="Self.cartdetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="product">
@@ -489,7 +497,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_CartDetail_User1">
-          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="cartdetail" Type="Self.cartdetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user">
@@ -613,7 +623,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Rating_Product1">
-          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="rating" Type="Self.rating" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="product">
@@ -625,7 +637,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Rating_User1">
-          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="rating" Type="Self.rating" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user">
@@ -725,11 +739,13 @@
           <EntitySetMapping Name="creditcards">
             <EntityTypeMapping TypeName="musicshopModel.creditcard">
               <MappingFragment StoreEntitySet="creditcard">
-                <ScalarProperty Name="cardProvider" ColumnName="cardProvider" />
-                <ScalarProperty Name="creditBalance" ColumnName="creditBalance" />
                 <ScalarProperty Name="creditCardID" ColumnName="creditCardID" />
                 <ScalarProperty Name="creditCardNumber" ColumnName="creditCardNumber" />
                 <ScalarProperty Name="creditCardCVV" ColumnName="creditCardCVV" />
+                <ScalarProperty Name="creditBalance" ColumnName="creditBalance" />
+                <ScalarProperty Name="cardProvider" ColumnName="cardProvider" />
+                <ScalarProperty Name="creditCardHolderName" ColumnName="creditCardHolderName" />
+                <ScalarProperty Name="expirationDate" ColumnName="expirationDate" />
                 <ScalarProperty Name="userID" ColumnName="userID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -766,6 +782,7 @@
           <EntitySetMapping Name="products">
             <EntityTypeMapping TypeName="musicshopModel.product">
               <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="productFileName" ColumnName="productFileName" />
                 <ScalarProperty Name="productID" ColumnName="productID" />
                 <ScalarProperty Name="productName" ColumnName="productName" />
                 <ScalarProperty Name="productPrice" ColumnName="productPrice" />

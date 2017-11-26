@@ -40,8 +40,19 @@
             this.productPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customCartDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
+            this.creditCardsComboBox = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.manageCardsButton = new System.Windows.Forms.Button();
+            this.creditcardBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.paymentMethodPanel = new System.Windows.Forms.Panel();
+            this.noPaymentMethLabel = new System.Windows.Forms.Label();
+            this.originalTotalLabel = new System.Windows.Forms.Label();
+            this.discountRateLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.cartGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customCartDetailBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.creditcardBindingSource)).BeginInit();
+            this.paymentMethodPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // cartEmptyLabel
@@ -73,7 +84,7 @@
             this.buyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buyButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buyButton.ForeColor = System.Drawing.Color.White;
-            this.buyButton.Location = new System.Drawing.Point(257, 330);
+            this.buyButton.Location = new System.Drawing.Point(248, 427);
             this.buyButton.Name = "buyButton";
             this.buyButton.Size = new System.Drawing.Size(120, 40);
             this.buyButton.TabIndex = 9;
@@ -89,7 +100,7 @@
             this.emptyCartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.emptyCartButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.emptyCartButton.ForeColor = System.Drawing.Color.White;
-            this.emptyCartButton.Location = new System.Drawing.Point(131, 330);
+            this.emptyCartButton.Location = new System.Drawing.Point(122, 427);
             this.emptyCartButton.Name = "emptyCartButton";
             this.emptyCartButton.Size = new System.Drawing.Size(120, 40);
             this.emptyCartButton.TabIndex = 8;
@@ -154,11 +165,100 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Your Cart";
             // 
+            // creditCardsComboBox
+            // 
+            this.creditCardsComboBox.FormattingEnabled = true;
+            this.creditCardsComboBox.Location = new System.Drawing.Point(9, 38);
+            this.creditCardsComboBox.Name = "creditCardsComboBox";
+            this.creditCardsComboBox.Size = new System.Drawing.Size(191, 21);
+            this.creditCardsComboBox.TabIndex = 12;
+            this.creditCardsComboBox.SelectedIndexChanged += new System.EventHandler(this.creditCardsComboBox_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(124, 13);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Choose payment method";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(288, 343);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(127, 13);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "Manage your credit cards";
+            // 
+            // manageCardsButton
+            // 
+            this.manageCardsButton.Location = new System.Drawing.Point(291, 359);
+            this.manageCardsButton.Name = "manageCardsButton";
+            this.manageCardsButton.Size = new System.Drawing.Size(109, 35);
+            this.manageCardsButton.TabIndex = 15;
+            this.manageCardsButton.Text = "Manage Cards";
+            this.manageCardsButton.UseVisualStyleBackColor = true;
+            this.manageCardsButton.Click += new System.EventHandler(this.manageCardsButton_Click);
+            // 
+            // creditcardBindingSource
+            // 
+            this.creditcardBindingSource.DataSource = typeof(MusicShop.creditcard);
+            // 
+            // paymentMethodPanel
+            // 
+            this.paymentMethodPanel.Controls.Add(this.label2);
+            this.paymentMethodPanel.Controls.Add(this.creditCardsComboBox);
+            this.paymentMethodPanel.Location = new System.Drawing.Point(76, 321);
+            this.paymentMethodPanel.Name = "paymentMethodPanel";
+            this.paymentMethodPanel.Size = new System.Drawing.Size(209, 84);
+            this.paymentMethodPanel.TabIndex = 16;
+            // 
+            // noPaymentMethLabel
+            // 
+            this.noPaymentMethLabel.AutoSize = true;
+            this.noPaymentMethLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.noPaymentMethLabel.Location = new System.Drawing.Point(87, 359);
+            this.noPaymentMethLabel.MaximumSize = new System.Drawing.Size(200, 0);
+            this.noPaymentMethLabel.Name = "noPaymentMethLabel";
+            this.noPaymentMethLabel.Size = new System.Drawing.Size(185, 30);
+            this.noPaymentMethLabel.TabIndex = 17;
+            this.noPaymentMethLabel.Text = "You don\'t have any payment methods, please add a new one!";
+            // 
+            // originalTotalLabel
+            // 
+            this.originalTotalLabel.AutoSize = true;
+            this.originalTotalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Strikeout, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.originalTotalLabel.Location = new System.Drawing.Point(93, 271);
+            this.originalTotalLabel.Name = "originalTotalLabel";
+            this.originalTotalLabel.Size = new System.Drawing.Size(70, 25);
+            this.originalTotalLabel.TabIndex = 18;
+            this.originalTotalLabel.Text = "label4";
+            // 
+            // discountRateLabel
+            // 
+            this.discountRateLabel.AutoSize = true;
+            this.discountRateLabel.BackColor = System.Drawing.Color.Red;
+            this.discountRateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.discountRateLabel.ForeColor = System.Drawing.Color.White;
+            this.discountRateLabel.Location = new System.Drawing.Point(195, 272);
+            this.discountRateLabel.Name = "discountRateLabel";
+            this.discountRateLabel.Size = new System.Drawing.Size(63, 25);
+            this.discountRateLabel.TabIndex = 25;
+            this.discountRateLabel.Text = "-10%";
+            // 
             // CartForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(525, 415);
+            this.ClientSize = new System.Drawing.Size(509, 501);
+            this.Controls.Add(this.originalTotalLabel);
+            this.Controls.Add(this.discountRateLabel);
+            this.Controls.Add(this.noPaymentMethLabel);
+            this.Controls.Add(this.paymentMethodPanel);
+            this.Controls.Add(this.manageCardsButton);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.cartEmptyLabel);
             this.Controls.Add(this.cartTotalLabel);
             this.Controls.Add(this.buyButton);
@@ -170,6 +270,9 @@
             this.Load += new System.EventHandler(this.CartForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.cartGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customCartDetailBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.creditcardBindingSource)).EndInit();
+            this.paymentMethodPanel.ResumeLayout(false);
+            this.paymentMethodPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -188,5 +291,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn discountRateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn productPriceDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource customCartDetailBindingSource;
+        private System.Windows.Forms.ComboBox creditCardsComboBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button manageCardsButton;
+        private System.Windows.Forms.BindingSource creditcardBindingSource;
+        private System.Windows.Forms.Panel paymentMethodPanel;
+        private System.Windows.Forms.Label noPaymentMethLabel;
+        private System.Windows.Forms.Label originalTotalLabel;
+        private System.Windows.Forms.Label discountRateLabel;
     }
 }

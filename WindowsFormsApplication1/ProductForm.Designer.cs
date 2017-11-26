@@ -60,13 +60,14 @@
             this.producttypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.discountRateLabel = new System.Windows.Forms.Label();
             this.oldPriceLabel = new System.Windows.Forms.Label();
-            this.ratingLabel = new System.Windows.Forms.Label();
+            this.genrePanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.genreBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coverPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.creatorBindingSource)).BeginInit();
             this.myCommentPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.producttypeBindingSource)).BeginInit();
+            this.genrePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -99,7 +100,7 @@
             this.label3.AutoSize = true;
             this.label3.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.genreBindingSource, "genreName", true));
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(261, 469);
+            this.label3.Location = new System.Drawing.Point(102, 11);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(70, 25);
             this.label3.TabIndex = 2;
@@ -350,7 +351,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label7.Location = new System.Drawing.Point(177, 469);
+            this.label7.Location = new System.Drawing.Point(18, 11);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(78, 25);
             this.label7.TabIndex = 21;
@@ -406,15 +407,14 @@
             this.oldPriceLabel.Text = "label10";
             this.oldPriceLabel.Visible = false;
             // 
-            // ratingLabel
+            // genrePanel
             // 
-            this.ratingLabel.AutoSize = true;
-            this.ratingLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "avgRating", true));
-            this.ratingLabel.Location = new System.Drawing.Point(41, 554);
-            this.ratingLabel.Name = "ratingLabel";
-            this.ratingLabel.Size = new System.Drawing.Size(35, 13);
-            this.ratingLabel.TabIndex = 26;
-            this.ratingLabel.Text = "label2";
+            this.genrePanel.Controls.Add(this.label7);
+            this.genrePanel.Controls.Add(this.label3);
+            this.genrePanel.Location = new System.Drawing.Point(164, 459);
+            this.genrePanel.Name = "genrePanel";
+            this.genrePanel.Size = new System.Drawing.Size(200, 45);
+            this.genrePanel.TabIndex = 26;
             // 
             // ProductForm
             // 
@@ -422,12 +422,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1089, 719);
-            this.Controls.Add(this.ratingLabel);
+            this.Controls.Add(this.genrePanel);
             this.Controls.Add(this.oldPriceLabel);
             this.Controls.Add(this.discountRateLabel);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.addToCartButton);
             this.Controls.Add(this.myCommentPanel);
             this.Controls.Add(this.commentsPanel);
@@ -439,7 +438,6 @@
             this.Controls.Add(this.creatorDescriptionLabel);
             this.Controls.Add(this.creatorListBox);
             this.Controls.Add(this.coverPictureBox);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.priceLabel);
             this.Controls.Add(this.label1);
             this.Name = "ProductForm";
@@ -452,6 +450,8 @@
             this.myCommentPanel.ResumeLayout(false);
             this.myCommentPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.producttypeBindingSource)).EndInit();
+            this.genrePanel.ResumeLayout(false);
+            this.genrePanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -490,6 +490,6 @@
         private System.Windows.Forms.BindingSource producttypeBindingSource;
         private System.Windows.Forms.Label discountRateLabel;
         private System.Windows.Forms.Label oldPriceLabel;
-        private System.Windows.Forms.Label ratingLabel;
+        private System.Windows.Forms.Panel genrePanel;
     }
 }

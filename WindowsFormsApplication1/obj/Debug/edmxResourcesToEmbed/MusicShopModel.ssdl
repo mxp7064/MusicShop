@@ -25,6 +25,9 @@
     <Property Name="creditCardNumber" Type="int" />
     <Property Name="creditCardCVV" Type="int" />
     <Property Name="creditBalance" Type="float" />
+    <Property Name="cardProvider" Type="varchar" MaxLength="45" />
+    <Property Name="creditCardHolderName" Type="varchar" MaxLength="45" />
+    <Property Name="expirationDate" Type="date" />
     <Property Name="userID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="genre">
@@ -66,6 +69,7 @@
     <Property Name="genreID" Type="int" />
     <Property Name="isDiscounted" Type="bool" />
     <Property Name="discountRate" Type="float" />
+    <Property Name="productFileName" Type="varchar" MaxLength="45" />
   </EntityType>
   <EntityType Name="productcreator">
     <Key>

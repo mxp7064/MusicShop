@@ -8,7 +8,85 @@ namespace MusicShop
 {
     public class MusicShopBL
     {
-        
+        public static List<invoicedetail> GetUserProducts(user user)
+        {
+            using (var db = new musicShopEntities())
+            {
+                db.users.Attach(user);
+                return db.invoicedetails.Include("product.producttype").Where(id => id.invoice.userID == user.userID).ToList();
+            }
+        }
+
+        public static List<invoicedetail> GetInvoiceDetails(invoice invoice)
+        {
+            using (var db = new musicShopEntities())
+            {
+                db.invoices.Attach(invoice);
+                return db.invoicedetails.Include("product").Where(id => id.invoiceID == invoice.invoiceID).ToList();
+            }
+        }
+
+        public static List<invoice> GetInvoices(user user)
+        {
+            using (var db = new musicShopEntities())
+            {
+                db.users.Attach(user);
+                return db.invoices.Where(i => i.user.userID == user.userID).ToList();
+            }
+        }
+
+        public static bool ExecuteCreditCardTransaction(creditcard creditCard, float amount, user user)
+        {
+            using (var db = new musicShopEntities())
+            {
+                db.creditcards.Attach(creditCard);
+                db.users.Attach(user);
+                if (creditCard.creditBalance > amount)
+                {
+                    creditCard.creditBalance -= amount;
+                    db.Entry(creditCard).State = System.Data.Entity.EntityState.Modified;
+
+                    user.discountPoints += amount / 10;
+                    db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    return true;
+                }
+
+                return false;
+                
+            }
+        }
+        public static void UpdateCreditCard(creditcard creditCard)
+        {
+            using (var db = new musicShopEntities())
+            {
+                db.creditcards.Attach(creditCard);
+                db.Entry(creditCard).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
+
+        public static void DeleteCreditCard(creditcard creditCard)
+        {
+            using (var db = new musicShopEntities())
+            {
+                db.creditcards.Attach(creditCard);
+                db.Entry(creditCard).State = System.Data.Entity.EntityState.Deleted;
+                db.SaveChanges();
+            }
+        }
+
+        public static void InsertNewCreditCard(creditcard creditCard, user user)
+        {
+            using (var db = new musicShopEntities())
+            {
+                db.users.Attach(user);
+                creditCard.user = user;
+                db.creditcards.Add(creditCard);
+                db.SaveChanges();
+            }
+        }
+
         public static void IncludeProductDetails(product product)
         {
             using (var db = new musicShopEntities())
@@ -34,15 +112,21 @@ namespace MusicShop
         {
             using (var db = new musicShopEntities())
             {
+                db.users.Attach(user);
                 db.cartdetails.RemoveRange(db.cartdetails.Where(x => x.user.userID == user.userID));
                 db.SaveChanges();
             }
         }
 
-        public static List<invoicedetail> FillInvoiceDetails(user user, invoice invoice)
+        public static List<invoicedetail> FillInvoiceDetails(user user, invoice invoice, float discountPointsToDeduct)
         {
             using (var db = new musicShopEntities())
             {
+                db.users.Attach(user);
+                user.discountPoints -= discountPointsToDeduct;
+                db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+
+                db.invoices.Attach(invoice);
                 List<cartdetail> cds = db.cartdetails.Where(x => x.user.userID == user.userID).ToList();
                 List<invoicedetail> ids = new List<invoicedetail>();
                 foreach (cartdetail cd in cds)
@@ -102,19 +186,21 @@ namespace MusicShop
                 return db.users.ToList();
             }
         }
-        /*
-        public static List<product> GetAllProducts()
+
+        public static List<creditcard> GetUserCreditCards(user user)
         {
             using (var db = new musicShopEntities())
             {
-                return db.products.ToList();
+                db.users.Attach(user);
+                return db.creditcards.Where(c => c.userID == user.userID).ToList();
             }
-        }*/
+        }
 
         public static List<cartdetail> GetCartDetails(user user)
         {
             using (var db = new musicShopEntities())
             {
+                db.users.Attach(user);
                 return db.cartdetails.Include("product").Where(x => x.user.userID == user.userID).ToList();
             }
         }
@@ -134,23 +220,29 @@ namespace MusicShop
             }
         }
 
-        public static void InsertProductIntoCart(product prod, user user)
+        public static bool InsertProductIntoCart(product prod, user user)
         {
             using (var db = new musicShopEntities())
             {
+                db.users.Attach(user);
+                db.products.Attach(prod);
+
+                //db.Entry(user).Collection(u => u.carts).Load();
+                //Console.WriteLine(user.carts.Count + "******************");
+                int count = db.cartdetails.Where(c => c.user.userID == user.userID && c.product.productID == prod.productID).Count();
+                if (count > 0)
+                    return true;
+
                 float? prodPrice = prod.productPrice;
                 if (prod.isDiscounted == true)
                 {
                     float? disRate = prod.discountRate;
-                    prodPrice = prodPrice - (prodPrice * disRate/100);
+                    prodPrice = prodPrice - (prodPrice * disRate / 100);
                 }
-
-                db.users.Attach(user);
-                //db.Entry(user).Collection(u => u.carts).Load();
-                //Console.WriteLine(user.carts.Count + "******************");
-
                 db.cartdetails.Add(new cartdetail { product = prod, user = user, productPrice = prodPrice });
                 db.SaveChanges();
+
+                return false;
             }
         }
 
@@ -163,20 +255,27 @@ namespace MusicShop
             }
         }
 
-        public static void CreateInvoice(invoice invoice)
+        public static void CreateInvoice(invoice invoice, user user)
         {
             using (var db = new musicShopEntities())
             {
+                db.users.Attach(user);
+                invoice.user = user;
                 db.invoices.Add(invoice);
                 db.SaveChanges();
             }
         }
 
-        public static float? GetCartTotal(user user)
+        public static float GetCartTotal(user user)
         {
             using (var db = new musicShopEntities())
             {
-                return db.cartdetails.Where(x => x.user.userID == user.userID).Select(x => x.productPrice).Sum();
+                db.users.Attach(user);
+                var query = db.cartdetails.Where(x => x.user.userID == user.userID).Select(x => x.productPrice).Sum();
+                if (query == null)
+                    return 0;
+                else
+                    return (float) query;
             }
         }
     }

@@ -31,6 +31,7 @@ namespace MusicShop
         public Nullable<int> genreID { get; set; }
         public Nullable<bool> isDiscounted { get; set; }
         public Nullable<float> discountRate { get; set; }
+        public string productFileName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cartdetail> cartdetails { get; set; }

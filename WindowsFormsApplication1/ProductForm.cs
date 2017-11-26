@@ -31,7 +31,10 @@ namespace MusicShop
             MusicShopBL.IncludeProductDetails(product);
 
             productBindingSource.DataSource = product;
-            genreBindingSource.DataSource = product.genre;
+            if (product.genre != null)
+                genreBindingSource.DataSource = product.genre;
+            else
+                genrePanel.Visible = false;
             creatorBindingSource.DataSource = product.productcreators.Select(x => x.creator);
             producttypeBindingSource.DataSource = product.producttype;
 
@@ -56,7 +59,7 @@ namespace MusicShop
         public void MyLoad()
         {
             commentsPanel.Controls.Clear();
-            //ratingLabel.Text = product.avgRating + "sdf";
+
             if (product.ratings.Count > 0)
             {
                 foreach (rating rating in product.ratings)
@@ -166,7 +169,13 @@ namespace MusicShop
                 return;
             }
 
-            MusicShopBL.InsertProductIntoCart(product, MusicShopPage.User);
+            bool doesExistInCart = MusicShopBL.InsertProductIntoCart(product, MusicShopPage.User);
+            if (doesExistInCart)
+            {
+                MessageBox.Show("This product is already in your cart!");
+                return;
+            }
+
             if (MessageBox.Show("Product " + product.productName + " added to your cart!\nDo you want to open your cart now?", "Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 CartForm cf = new CartForm();
