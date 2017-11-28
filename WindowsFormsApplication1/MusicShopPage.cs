@@ -26,8 +26,8 @@ namespace WindowsFormsApplication1
         double toPrice = 0;
 
         private int page = 1;
-        private int pageCount;
-        private int numOfRes;
+        private int pageCount = 0;
+        private int numOfRes = 0;
 
         public MusicShopPage()
         {
@@ -37,6 +37,7 @@ namespace WindowsFormsApplication1
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            CenterToScreen();
             double.TryParse(priceRangeFromTB.Text, out fromPrice);
             double.TryParse(priceRangeToTB.Text, out toPrice);
             genres = MusicShopBL.GetGenres();
@@ -58,7 +59,7 @@ namespace WindowsFormsApplication1
 
         public void LoadProducts(int p)
         {
-            products = MusicShopBL.GetProducts(prodType, genres, fromPrice, toPrice, p, out pageCount, out numOfRes);
+            products = MusicShopBL.GetProducts(prodType, genres, fromPrice, toPrice, p, ref pageCount, ref numOfRes);
             page = p;
             RefreshProducts();
             UpdatePageTextBox();

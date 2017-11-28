@@ -27,8 +27,8 @@
             <PropertyRef Name="creditCardID" />
           </Key>
           <Property Name="creditCardID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="creditCardNumber" Type="int" />
-          <Property Name="creditCardCVV" Type="int" />
+          <Property Name="creditCardNumber" Type="varchar" MaxLength="100" />
+          <Property Name="creditCardCVV" Type="varchar" MaxLength="100" />
           <Property Name="creditBalance" Type="float" />
           <Property Name="cardProvider" Type="varchar" MaxLength="45" />
           <Property Name="creditCardHolderName" Type="varchar" MaxLength="45" />
@@ -61,6 +61,15 @@
           <Property Name="productID" Type="int" Nullable="false" />
           <Property Name="invoiceID" Type="int" Nullable="false" />
           <Property Name="productPrice" Type="float" />
+        </EntityType>
+        <EntityType Name="log">
+          <Key>
+            <PropertyRef Name="logID" />
+          </Key>
+          <Property Name="logID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userID" Type="int" />
+          <Property Name="timeStamp" Type="datetime" Precision="0" />
+          <Property Name="logMessage" Type="varchar" MaxLength="2000" />
         </EntityType>
         <EntityType Name="product">
           <Key>
@@ -112,7 +121,6 @@
           <Property Name="password" Type="varchar" MaxLength="100" />
           <Property Name="accessLevel" Type="varchar" MaxLength="45" />
           <Property Name="dateOfBirth" Type="date" />
-          <Property Name="subscriptionActive" Type="bool" />
           <Property Name="discountPoints" Type="float" />
         </EntityType>
         <Association Name="fk_CartDetail_Product1">
@@ -290,6 +298,7 @@
           <EntitySet Name="genre" EntityType="Self.genre" Schema="musicshop" store:Type="Tables" />
           <EntitySet Name="invoice" EntityType="Self.invoice" Schema="musicshop" store:Type="Tables" />
           <EntitySet Name="invoicedetail" EntityType="Self.invoicedetail" Schema="musicshop" store:Type="Tables" />
+          <EntitySet Name="log" EntityType="Self.log" Schema="musicshop" store:Type="Tables" />
           <EntitySet Name="product" EntityType="Self.product" Schema="musicshop" store:Type="Tables" />
           <EntitySet Name="productcreator" EntityType="Self.productcreator" Schema="musicshop" store:Type="Tables" />
           <EntitySet Name="producttype" EntityType="Self.producttype" Schema="musicshop" store:Type="Tables" />
@@ -373,8 +382,8 @@
             <PropertyRef Name="creditCardID" />
           </Key>
           <Property Name="creditCardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="creditCardNumber" Type="Int32" />
-          <Property Name="creditCardCVV" Type="Int32" />
+          <Property Name="creditCardNumber" Type="String" />
+          <Property Name="creditCardCVV" Type="String" />
           <Property Name="creditBalance" Type="Single" />
           <Property Name="cardProvider" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="creditCardHolderName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
@@ -475,7 +484,6 @@
           <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="accessLevel" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="dateOfBirth" Type="DateTime" />
-          <Property Name="subscriptionActive" Type="Boolean" />
           <Property Name="discountPoints" Type="Single" />
           <NavigationProperty Name="cartdetails" Relationship="Self.fk_CartDetail_User1" FromRole="user" ToRole="cartdetail" />
           <NavigationProperty Name="creditcards" Relationship="Self.fk_CreditCard_User1" FromRole="user" ToRole="creditcard" />
@@ -710,7 +718,17 @@
             <End Role="user" EntitySet="users" />
             <End Role="rating" EntitySet="ratings" />
           </AssociationSet>
+          <EntitySet Name="logs" EntityType="musicshopModel.log" />
         </EntityContainer>
+        <EntityType Name="log">
+          <Key>
+            <PropertyRef Name="logID" />
+          </Key>
+          <Property Name="logID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="Int32" />
+          <Property Name="timeStamp" Type="DateTime" />
+          <Property Name="logMessage" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -831,8 +849,17 @@
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
                 <ScalarProperty Name="dateOfBirth" ColumnName="dateOfBirth" />
-                <ScalarProperty Name="subscriptionActive" ColumnName="subscriptionActive" />
                 <ScalarProperty Name="discountPoints" ColumnName="discountPoints" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="logs">
+            <EntityTypeMapping TypeName="musicshopModel.log">
+              <MappingFragment StoreEntitySet="log">
+                <ScalarProperty Name="logMessage" ColumnName="logMessage" />
+                <ScalarProperty Name="timeStamp" ColumnName="timeStamp" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="logID" ColumnName="logID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -16,6 +16,7 @@ namespace MusicShop
         public UserLoginForm()
         {
             InitializeComponent();
+            CenterToScreen();
         }
 
         private void loginButton_Click(object sender, EventArgs e)

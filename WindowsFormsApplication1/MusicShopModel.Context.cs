@@ -36,5 +36,6 @@ namespace MusicShop
         public virtual DbSet<producttype> producttypes { get; set; }
         public virtual DbSet<rating> ratings { get; set; }
         public virtual DbSet<user> users { get; set; }
+        public virtual DbSet<log> logs { get; set; }
     }
 }

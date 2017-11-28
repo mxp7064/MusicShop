@@ -115,8 +115,17 @@
           <ScalarProperty Name="password" ColumnName="password" />
           <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
           <ScalarProperty Name="dateOfBirth" ColumnName="dateOfBirth" />
-          <ScalarProperty Name="subscriptionActive" ColumnName="subscriptionActive" />
           <ScalarProperty Name="discountPoints" ColumnName="discountPoints" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="logs">
+      <EntityTypeMapping TypeName="musicshopModel.log">
+        <MappingFragment StoreEntitySet="log">
+          <ScalarProperty Name="logMessage" ColumnName="logMessage" />
+          <ScalarProperty Name="timeStamp" ColumnName="timeStamp" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="logID" ColumnName="logID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

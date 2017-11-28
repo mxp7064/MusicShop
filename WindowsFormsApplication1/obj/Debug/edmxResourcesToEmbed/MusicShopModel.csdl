@@ -25,8 +25,8 @@
       <PropertyRef Name="creditCardID" />
     </Key>
     <Property Name="creditCardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="creditCardNumber" Type="Int32" />
-    <Property Name="creditCardCVV" Type="Int32" />
+    <Property Name="creditCardNumber" Type="String" />
+    <Property Name="creditCardCVV" Type="String" />
     <Property Name="creditBalance" Type="Single" />
     <Property Name="cardProvider" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
     <Property Name="creditCardHolderName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
@@ -127,7 +127,6 @@
     <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="accessLevel" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
     <Property Name="dateOfBirth" Type="DateTime" />
-    <Property Name="subscriptionActive" Type="Boolean" />
     <Property Name="discountPoints" Type="Single" />
     <NavigationProperty Name="cartdetails" Relationship="Self.fk_CartDetail_User1" FromRole="user" ToRole="cartdetail" />
     <NavigationProperty Name="creditcards" Relationship="Self.fk_CreditCard_User1" FromRole="user" ToRole="creditcard" />
@@ -362,5 +361,15 @@
       <End Role="user" EntitySet="users" />
       <End Role="rating" EntitySet="ratings" />
     </AssociationSet>
+    <EntitySet Name="logs" EntityType="musicshopModel.log" />
   </EntityContainer>
+  <EntityType Name="log">
+    <Key>
+      <PropertyRef Name="logID" />
+    </Key>
+    <Property Name="logID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="Int32" />
+    <Property Name="timeStamp" Type="DateTime" />
+    <Property Name="logMessage" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

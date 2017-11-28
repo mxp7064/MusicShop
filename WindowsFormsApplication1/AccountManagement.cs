@@ -20,6 +20,7 @@ namespace MusicShop
 
         private void AccountManagement_Load(object sender, EventArgs e)
         {
+            CenterToScreen();
             invoiceDataGridView.DataSource = MusicShopBL.GetInvoices(MusicShopPage.User);
         }
 

@@ -21,7 +21,6 @@ C:\Users\Panca\Desktop\MusicShop\WindowsFormsApplication1\obj\Debug\MusicShop.Us
 C:\Users\Panca\Desktop\MusicShop\WindowsFormsApplication1\obj\Debug\MusicShop.ProductForm.resources
 C:\Users\Panca\Desktop\MusicShop\WindowsFormsApplication1\obj\Debug\MusicShop.CartForm.resources
 C:\Users\Panca\Desktop\MusicShop\WindowsFormsApplication1\obj\Debug\MusicShop.AdminForm.resources
-C:\Users\Panca\Desktop\MusicShop\WindowsFormsApplication1\obj\Debug\MusicShop.ProductAdminForm.resources
 C:\Users\Panca\Desktop\MusicShop\WindowsFormsApplication1\obj\Debug\MusicShop.CardManagement.resources
 C:\Users\Panca\Desktop\MusicShop\WindowsFormsApplication1\obj\Debug\MusicShop.AccountManagement.resources
 C:\Users\Panca\Desktop\MusicShop\WindowsFormsApplication1\obj\Debug\MusicShop.PlayUserProductsForm.resources

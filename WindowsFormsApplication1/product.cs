@@ -11,7 +11,8 @@ namespace MusicShop
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,6 +26,8 @@ namespace MusicShop
     
         public int productID { get; set; }
         public string productName { get; set; }
+        [RegularExpression(@"^\d+\.\d{0,2}$")]
+        [Range(0, 9999999999999999.99)]
         public Nullable<float> productPrice { get; set; }
         public string productCover { get; set; }
         public int productTypeID { get; set; }

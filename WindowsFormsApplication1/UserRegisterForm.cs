@@ -16,6 +16,7 @@ namespace MusicShop
         public UserRegisterForm()
         {
             InitializeComponent();
+            CenterToScreen();
         }
 
         private void UserRegisterForm_Load(object sender, EventArgs e)
@@ -47,7 +48,12 @@ namespace MusicShop
                 DateTime dob = dateTimePicker.Value;
                 string email = emailTextBox.Text;
 
-                user newUser = MusicShopBL.RegisterNewUser(username, password, dob, email);
+                user newUser = null;
+                if (MusicShopBL.RegisterNewUser(username, password, dob, email, ref newUser) == false)
+                {
+                    MessageBox.Show("Register unsuccessufl!");
+                    return;
+                }
  
                 MessageBox.Show("Register successufl! Welcome " + username);
                 MusicShopPage.IsLoggedIn = true;

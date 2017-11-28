@@ -43,6 +43,7 @@ namespace MusicShop
 
         private void PlayUserProductsForm_Load(object sender, EventArgs e)
         {
+            CenterToScreen();
             a = System.Reflection.Assembly.GetExecutingAssembly();
             player = new SoundPlayer();
 

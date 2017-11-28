@@ -126,6 +126,8 @@
     </Compile>
     <Compile Include="CustomCartDetail.cs" />
     <Compile Include="CustomInvoiceDetail.cs" />
+    <Compile Include="DBLogger.cs" />
+    <Compile Include="ExceptionLog.cs" />
     <Compile Include="genre.cs">
       <DependentUpon>MusicShopModel.tt</DependentUpon>
     </Compile>
@@ -133,6 +135,9 @@
       <DependentUpon>MusicShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="invoicedetail.cs">
+      <DependentUpon>MusicShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="log.cs">
       <DependentUpon>MusicShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="MusicShopModel.Context.cs">
@@ -157,6 +162,8 @@
       <DependentUpon>MusicShopPage.cs</DependentUpon>
     </Compile>
     <Compile Include="MusicShopBL.cs" />
+    <Compile Include="MyDbConfiguration.cs" />
+    <Compile Include="OneLineFromatter.cs" />
     <Compile Include="PlayUserProductsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,12 +172,6 @@
     </Compile>
     <Compile Include="product.cs">
       <DependentUpon>MusicShopModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProductAdminForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProductAdminForm.Designer.cs">
-      <DependentUpon>ProductAdminForm.cs</DependentUpon>
     </Compile>
     <Compile Include="productcreator.cs">
       <DependentUpon>MusicShopModel.tt</DependentUpon>
@@ -223,9 +224,6 @@
     <EmbeddedResource Include="PlayUserProductsForm.resx">
       <DependentUpon>PlayUserProductsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProductAdminForm.resx">
-      <DependentUpon>ProductAdminForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ProductForm.resx">
       <DependentUpon>ProductForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -261,6 +259,7 @@
     <None Include="Properties\DataSources\genre.datasource" />
     <None Include="Properties\DataSources\invoice.datasource" />
     <None Include="Properties\DataSources\invoicedetail.datasource" />
+    <None Include="Properties\DataSources\log.datasource" />
     <None Include="Properties\DataSources\product.datasource" />
     <None Include="Properties\DataSources\productcreator.datasource" />
     <None Include="Properties\DataSources\ProductForm.datasource" />

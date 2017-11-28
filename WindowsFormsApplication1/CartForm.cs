@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,13 +28,17 @@ namespace MusicShop
 
         private void CartForm_Load(object sender, EventArgs e)
         {
+            CenterToScreen();
             User = MusicShopPage.User;
             LoadCart();
         }
 
         private void emptyCartButton_Click(object sender, EventArgs e)
         {
-            MusicShopBL.EmptyCart(User);
+            if (MusicShopBL.EmptyCart(User) == false) {
+                MessageBox.Show("Cart can't be emptied!");
+                return;
+            }
             LoadCart();
         }
 
@@ -113,10 +119,10 @@ namespace MusicShop
                 MessageBox.Show("You must select payment method!");
                 return;
             }
-            
 
-            
 
+
+            Console.WriteLine(totalWithDiscount);
             bool executed = MusicShopBL.ExecuteCreditCardTransaction(selectedCreditCard, totalWithDiscount, MusicShopPage.User);
             if (executed == false)
             {
@@ -132,10 +138,14 @@ namespace MusicShop
 
             MusicShopBL.CreateInvoice(invoice, MusicShopPage.User);
             List<invoicedetail> ids = MusicShopBL.FillInvoiceDetails(User, invoice, discountRate);
-
             
-            SendEmail();
-            MusicShopBL.EmptyCart(User);
+            SendEmail(invoice, ids);
+
+            if (MusicShopBL.EmptyCart(User) == false)
+            {
+                MessageBox.Show("Cart can't be emptied!");
+                return;
+            }
 
             LoadCart();
             Close();
@@ -143,8 +153,49 @@ namespace MusicShop
             MessageBox.Show("Thank you for your purchase! We sent you an email invoice!");
         }
 
-        private void SendEmail()
+        private void SendEmail(invoice invoice, List<invoicedetail> ids)
         {
+            using (SmtpClient smtp = new SmtpClient())
+            {
+                smtp.Host = "smtp.gmail.com";
+                smtp.UseDefaultCredentials = false;
+                NetworkCredential netCred = new NetworkCredential("panca1234@gmail.com", "boolean = false;");
+                smtp.Credentials = netCred;
+                smtp.EnableSsl = true;
+
+                using (MailMessage msg = new MailMessage("panca1234@gmail.com", User.userEmail))
+                {
+                    msg.Subject = "Invoice for you purchase at Music Shop";
+                    StringBuilder sb = new StringBuilder();
+
+                    string start = "<div style='font-family: Verdana, sans-serif; background-color: #33ccff; padding: 20px; width: 500px; margin-left: auto; margin-right: auto;'><p style='color: white; padding-bottom:10px; text-align: center;'>Dear " + User.userName + ",<br>This is your invoice for your purchase!</p><p><span style='width: 300px;color: white;'>Product Name</span><span style='color: white;float: right;'>Product Price</span></p>";
+                    sb.AppendLine(start);
+                    
+                    foreach (invoicedetail id in ids)
+                    {
+                        sb.AppendLine("<p><span style='width: 300px;'>" + id.product.productName + "</span><span style='float: right;'>$" + id.productPrice + "</span></p>");
+                    }
+
+                    float? total = invoice.totalWithDiscount;
+
+                    string end = "<p style='color: white; padding-left: 369px; border-top: 2px solid white; padding-top: 10px;'>TOTAL: $" + total + "</p></div>";
+                    sb.AppendLine(end);
+
+                    msg.Body = sb.ToString();
+                    msg.IsBodyHtml = true;
+
+                    try
+                    {
+                        smtp.Send(msg);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Email to your address could not be sent!");
+                        //MessageBox.Show(ex.ToString());
+                    }
+
+                }
+            }
         }
 
         private void manageCardsButton_Click(object sender, EventArgs e)

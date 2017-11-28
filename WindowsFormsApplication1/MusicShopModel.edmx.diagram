@@ -28,6 +28,7 @@
         <AssociationConnector Association="musicshopModel.fk_ProductCreator_Product1" ManuallyRouted="false" />
         <AssociationConnector Association="musicshopModel.fk_Rating_Product1" ManuallyRouted="false" />
         <AssociationConnector Association="musicshopModel.fk_Rating_User1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="musicshopModel.log" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

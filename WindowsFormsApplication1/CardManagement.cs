@@ -22,6 +22,7 @@ namespace MusicShop
 
         private void AccountManagement_Load(object sender, EventArgs e)
         {
+            CenterToScreen();
             expirationDatePicker.Format = DateTimePickerFormat.Custom;
             expirationDatePicker.CustomFormat = "MM-yyyy";
             expirationDatePicker.ShowUpDown = true;
@@ -86,6 +87,9 @@ namespace MusicShop
             addCreditCardButton.Visible = false;
             Button updateButton = sender as Button;
             creditCard = updateButton.Tag as creditcard;
+
+            cardProviderTextBox.Text = creditCard.cardProvider;
+            creditCardHolderTextBox.Text = creditCard.creditCardHolderName;
         }
 
         private void deleteClick(object sender, EventArgs e)
@@ -95,7 +99,11 @@ namespace MusicShop
             {
                 Button deleteButton = sender as Button;
                 creditcard creditCardToDelete = deleteButton.Tag as creditcard;
-                MusicShopBL.DeleteCreditCard(creditCardToDelete);
+                if (MusicShopBL.DeleteCreditCard(creditCardToDelete) == false)
+                {
+                    MessageBox.Show("Can't delete credit card!");
+                    return;
+                }
                 MessageBox.Show("Credit card deleted");
                 cancelButton_Click(null, EventArgs.Empty);
                 LoadCards();
@@ -106,13 +114,17 @@ namespace MusicShop
 
         private void updateCreditCardButton_Click(object sender, EventArgs e)
         {
-            creditCard.creditCardNumber = Int32.Parse(creditCardNumTextBox.Text);
-            creditCard.creditCardCVV = Int32.Parse(creditCardCvvTextBox.Text);
+            creditCard.creditCardNumber = SecurePasswordHasher.Hash(creditCardNumTextBox.Text);
+            creditCard.creditCardCVV = SecurePasswordHasher.Hash(creditCardCvvTextBox.Text);
             creditCard.cardProvider = cardProviderTextBox.Text;
             creditCard.creditCardHolderName = creditCardHolderTextBox.Text;
             creditCard.expirationDate = System.Convert.ToDateTime(expirationDatePicker.Value.ToString("yyyy-MM-dd"));
 
-            MusicShopBL.UpdateCreditCard(creditCard);
+            if (MusicShopBL.UpdateCreditCard(creditCard) == false)
+            {
+                MessageBox.Show("Can't update credit card!");
+                return;
+            }
             MessageBox.Show("Credit card sucessfully updated!");
             cancelButton_Click(null, EventArgs.Empty);
             LoadCards();
@@ -141,14 +153,18 @@ namespace MusicShop
         private void addCreditCardButton_Click(object sender, EventArgs e)
         {
             creditcard cc = new creditcard();
-            cc.creditCardNumber = Int32.Parse(creditCardNumTextBox.Text);
-            cc.creditCardCVV = Int32.Parse(creditCardCvvTextBox.Text);
+            cc.creditCardNumber = SecurePasswordHasher.Hash(creditCardNumTextBox.Text);
+            cc.creditCardCVV = SecurePasswordHasher.Hash(creditCardCvvTextBox.Text);
             cc.cardProvider = cardProviderTextBox.Text;
             cc.creditCardHolderName = creditCardHolderTextBox.Text;
             cc.expirationDate = System.Convert.ToDateTime(expirationDatePicker.Value.ToString("yyyy-MM-dd"));
-            cc.creditBalance = 300;
+            cc.creditBalance = 600;
 
-            MusicShopBL.InsertNewCreditCard(cc, MusicShopPage.User);
+            if (MusicShopBL.InsertNewCreditCard(cc, MusicShopPage.User) == false)
+            {
+                MessageBox.Show("Credit card can't be added!");
+                return;
+            }
             MessageBox.Show("Credit card sucessfully added!");
             cancelButton_Click(null, EventArgs.Empty);
             LoadCards();

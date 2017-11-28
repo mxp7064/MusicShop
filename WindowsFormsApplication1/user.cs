@@ -29,7 +29,6 @@ namespace MusicShop
         public string password { get; set; }
         public string accessLevel { get; set; }
         public Nullable<System.DateTime> dateOfBirth { get; set; }
-        public Nullable<bool> subscriptionActive { get; set; }
         public Nullable<float> discountPoints { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -23,12 +23,17 @@ namespace MusicShop
 
         private void ProductForm_Load(object sender, EventArgs e)
         {
+            CenterToScreen();
             product = this.Tag as product;
 
             object image = Resources.ResourceManager.GetObject(product.productCover);
             coverPictureBox.Image = (Image)image;
 
-            MusicShopBL.IncludeProductDetails(product);
+            if (MusicShopBL.IncludeProductDetails(product) == false)
+            {
+                MessageBox.Show("Product can't be loaded!");
+                return;
+            }
 
             productBindingSource.DataSource = product;
             if (product.genre != null)
@@ -139,11 +144,15 @@ namespace MusicShop
             int grade = Convert.ToInt32(gradeComboBox.SelectedItem.ToString());
             user user = MusicShopPage.User;
 
-            MusicShopBL.InsertNewRating(new rating { user = user, comment = comment, ratingGrade = grade, product = product});
-            
-             MessageBox.Show("Comment posted!");
-             MyLoad();
-          
+            if (MusicShopBL.InsertNewRating(new rating { user = user, comment = comment, ratingGrade = grade, product = product }))
+            {
+                MessageBox.Show("Comment posted!");
+                MyLoad();
+                return;
+            }
+
+            MessageBox.Show("Can not post comment!");
+
         }
 
         private void loginButton_Click(object sender, EventArgs e)
