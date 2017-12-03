@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="75e465c9d73348acab577245c0470e97" Name="Diagram1">
+        <EntityTypeShape EntityType="musicshopModel.cartdetail" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicshopModel.creator" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicshopModel.creditcard" Width="1.5" PointX="3" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicshopModel.genre" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicshopModel.invoice" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicshopModel.invoicedetail" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicshopModel.product" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicshopModel.productcreator" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicshopModel.producttype" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicshopModel.rating" Width="1.5" PointX="8.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicshopModel.user" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <AssociationConnector Association="musicshopModel.fk_CartDetail_Product1" ManuallyRouted="false" />
+        <AssociationConnector Association="musicshopModel.fk_CartDetail_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="musicshopModel.fk_ProductCreator_Creator1" ManuallyRouted="false" />
+        <AssociationConnector Association="musicshopModel.fk_CreditCard_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="musicshopModel.fk_Product_Genre1" ManuallyRouted="false" />
+        <AssociationConnector Association="musicshopModel.fk_Invoice_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="musicshopModel.fk_InvoiceDetail_Invoice1" ManuallyRouted="false" />
+        <AssociationConnector Association="musicshopModel.fk_InvoiceDetail_Product1" ManuallyRouted="false" />
+        <AssociationConnector Association="musicshopModel.fk_Product_ProductType1" ManuallyRouted="false" />
+        <AssociationConnector Association="musicshopModel.fk_ProductCreator_Product1" ManuallyRouted="false" />
+        <AssociationConnector Association="musicshopModel.fk_Rating_Product1" ManuallyRouted="false" />
+        <AssociationConnector Association="musicshopModel.fk_Rating_User1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="musicshopModel.log" Width="1.5" PointX="7.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
